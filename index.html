@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Villa Lucca × Alan Productions — Delivery Space</title>
+<meta name="description" content="The official Villa Lucca × Alan Productions delivery space. Each film and campaign is sorted here as it's finished — viewed in motion, linked to its full-quality master." />
+<link rel="icon" type="image/png" href="assets/logo/villa_lucca_green.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<style>
+  :root{
+    --ink:#19211a;            /* deep forest near-black */
+    --ink-soft:#3b463a;
+    --cream:#F4EFE4;          /* warm marble cream */
+    --cream-deep:#EBE4D5;
+    --sand:#D9D0BF;
+    --stone:#6f695b;
+    --stone-soft:#8a8273;
+    --green:#2f3b2a;          /* villa lucca forest green */
+    --green-bright:#46583a;
+    --gold:#A9854D;           /* warm brass accent */
+    --gold-bright:#C2A065;
+    --line:rgba(25,33,26,.14);
+    --line-light:rgba(244,239,228,.20);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --maxw:1320px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{background:var(--cream);color:var(--green);font-family:'Inter',system-ui,sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+  ::selection{background:var(--gold);color:var(--cream)}
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- type system ---------- */
+  .eyebrow{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.34em;
+    font-size:clamp(.6rem,.78vw,.74rem);text-transform:uppercase;color:var(--gold);display:inline-block}
+  .display{font-family:'Playfair Display',serif;font-weight:400;line-height:1.04;letter-spacing:-.01em}
+  .serif{font-family:'Cormorant Garamond',serif}
+  h1,h2,h3{font-weight:400}
+
+  .grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.045;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ---------- header ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(16px,2.2vw,26px) clamp(20px,4vw,58px);
+    transition:background .6s var(--ease),color .6s var(--ease),padding .6s var(--ease),box-shadow .6s var(--ease);
+    color:var(--cream)}
+  header.scrolled{background:rgba(244,239,228,.92);-webkit-backdrop-filter:saturate(140%) blur(14px);backdrop-filter:saturate(140%) blur(14px);
+    color:var(--green);padding-top:clamp(10px,1.3vw,15px);padding-bottom:clamp(10px,1.3vw,15px);box-shadow:0 1px 0 var(--line)}
+  .hm{position:relative;display:flex;align-items:center;height:clamp(26px,3vw,34px)}
+  .hm img{height:100%;width:auto;transition:opacity .5s var(--ease)}
+  .hm .lg-green{position:absolute;left:0;top:0;opacity:0}
+  header.scrolled .hm .lg-cream{opacity:0}
+  header.scrolled .hm .lg-green{opacity:1}
+  .hr{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.26em;font-size:clamp(.56rem,.78vw,.7rem);
+    text-transform:uppercase;opacity:.92;display:flex;align-items:center;gap:.7em}
+  .hr .x{color:var(--gold-bright);font-size:1.15em;transform:translateY(-1px)}
+  header:not(.scrolled) .hr{text-shadow:0 1px 18px rgba(0,0,0,.5)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;height:100svh;min-height:640px;width:100%;overflow:hidden;display:flex;align-items:flex-end}
+  .hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:0}
+  .hero .scrim{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(15,20,14,.50) 0%,rgba(15,20,14,.12) 30%,rgba(15,20,14,.22) 60%,rgba(15,20,14,.86) 100%),
+      radial-gradient(120% 80% at 50% 16%,transparent 42%,rgba(15,20,14,.42) 100%)}
+  .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;
+    padding:0 clamp(20px,4vw,58px) clamp(44px,6vw,96px);color:var(--cream)}
+  .hero .kicker{margin-bottom:clamp(20px,3vw,32px);color:var(--gold-bright);text-shadow:0 1px 16px rgba(0,0,0,.6)}
+  .hero h1{font-size:clamp(2.6rem,7.6vw,6.6rem);line-height:1.0;letter-spacing:-.018em;text-shadow:0 2px 40px rgba(0,0,0,.4);max-width:16ch}
+  .hero h1 em{font-style:italic;color:var(--gold-bright)}
+  .hero .sub{margin-top:clamp(20px,2.6vw,30px);max-width:52ch;font-size:clamp(.98rem,1.25vw,1.14rem);
+    color:rgba(244,239,228,.85);font-weight:300;line-height:1.7}
+  .scrollcue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;
+    align-items:center;gap:10px;color:rgba(244,239,228,.7);font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.3em;font-size:.62rem;text-transform:uppercase}
+  .scrollcue .bar{width:1px;height:42px;background:linear-gradient(var(--gold-bright),transparent);animation:cue 2.4s var(--ease) infinite}
+  @keyframes cue{0%{transform:scaleY(.3);transform-origin:top;opacity:0}40%{opacity:1}100%{transform:scaleY(1);transform-origin:top;opacity:0}}
+
+  /* ---------- scaffolding ---------- */
+  section{position:relative}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,58px)}
+  .band{padding:clamp(78px,12vw,168px) 0}
+  .sec-head{display:flex;flex-direction:column;gap:clamp(16px,2vw,26px);max-width:64ch}
+  .sec-head h2{font-size:clamp(2rem,5.2vw,4.2rem);color:var(--green)}
+  .lead{font-size:clamp(1.08rem,1.5vw,1.5rem);line-height:1.55;color:var(--ink-soft);font-weight:400;font-family:'Cormorant Garamond',serif;letter-spacing:.005em}
+  .body-copy{font-size:clamp(1rem,1.15vw,1.08rem);color:var(--ink-soft);max-width:56ch;font-weight:300}
+  .idx{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.3em;color:var(--gold);font-size:.8rem}
+
+  /* ---------- 01 the space ---------- */
+  .space{background:var(--cream)}
+  .space-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,6vw,96px);align-items:center}
+  .space-copy .eyebrow{margin-bottom:24px}
+  .space-copy h2{margin-bottom:clamp(22px,2.6vw,32px)}
+  .space-copy .body-copy + .body-copy{margin-top:1.3em}
+  .space-figure{position:relative}
+  .space-figure img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px}
+  .space-figure figcaption{position:absolute;left:18px;bottom:16px;color:var(--cream);font-family:'Inter',sans-serif;font-weight:500;
+    letter-spacing:.24em;font-size:.62rem;text-transform:uppercase;text-shadow:0 1px 14px rgba(0,0,0,.5)}
+  .space-figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(15,20,14,.5));border-radius:2px}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(56px,7vw,96px)}
+  .step{background:var(--cream);padding:clamp(30px,3.4vw,52px) clamp(24px,2.6vw,42px)}
+  .step .sn{font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.26em;color:var(--gold);font-size:.78rem;margin-bottom:18px;display:block}
+  .step h3{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2vw,1.7rem);margin-bottom:12px;line-height:1.14;color:var(--green)}
+  .step p{color:var(--ink-soft);font-weight:300;font-size:.98rem;max-width:34ch}
+
+  /* ---------- pull quote ---------- */
+  .quote-band{background:var(--ink);color:var(--cream);text-align:center}
+  .quote-band .wrap{padding-top:clamp(78px,11vw,150px);padding-bottom:clamp(78px,11vw,150px)}
+  .quote-band p{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:clamp(1.5rem,3.7vw,3rem);line-height:1.3;max-width:24ch;margin:0 auto;letter-spacing:-.01em}
+  .quote-band .by{margin-top:30px;color:var(--gold-bright)}
+
+  /* ---------- 02 the film ---------- */
+  .film{background:var(--cream-deep)}
+  .film-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(40px,6vw,90px);align-items:center}
+  .film-copy .eyebrow{margin-bottom:24px}
+  .film-copy h2{margin-bottom:clamp(20px,2.4vw,30px);color:var(--green)}
+  .film-copy .lead{margin-bottom:26px}
+  .film-copy .note{display:flex;gap:.7em;align-items:flex-start;color:var(--stone);font-size:.92rem;max-width:44ch;border-left:2px solid var(--gold);padding-left:16px}
+  .phone{position:relative;width:min(360px,82vw);margin:0 auto;aspect-ratio:9/19.5;border-radius:34px;padding:11px;
+    background:linear-gradient(160deg,#222a1f,#0c0f0a);box-shadow:0 50px 90px -30px rgba(25,33,26,.55),0 0 0 1px rgba(169,133,77,.35),inset 0 0 0 1px rgba(0,0,0,.6)}
+  .phone .screen{position:relative;width:100%;height:100%;border-radius:24px;overflow:hidden;background:#000}
+  .phone video{width:100%;height:100%;object-fit:cover;display:block}
+  .phone .shield{position:absolute;inset:0;z-index:3}
+  .phone .gloss{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.10),transparent 40%)}
+  .muted-tag{display:inline-flex;align-items:center;gap:.6em;margin-top:18px;color:var(--stone-soft);font-size:.8rem;letter-spacing:.04em;justify-content:center;width:100%}
+  .muted-tag svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.4}
+  .film.alt{background:var(--cream);border-top:1px solid var(--line)}
+
+  /* ---------- master link (full-quality download) ---------- */
+  .master-link{display:inline-flex;align-items:center;gap:.7em;font-family:'Inter',sans-serif;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;color:var(--green);
+    border:1px solid var(--gold);border-radius:2px;padding:13px 26px;
+    transition:background .45s var(--ease),color .45s var(--ease)}
+  .master-link .ar{color:var(--gold);font-weight:400;transition:transform .45s var(--ease),color .45s var(--ease)}
+  .master-link:hover{background:var(--gold);color:var(--ink)}
+  .master-link:hover .ar{color:var(--ink);transform:translateX(4px)}
+  .master-cta{display:flex;justify-content:center;margin-top:18px}
+
+  /* ---------- 04 match day (dark band · two reels) ---------- */
+  .matchday{background:radial-gradient(125% 85% at 50% 0%,#222c20 0%,var(--ink) 58%);color:var(--cream)}
+  .matchday .md-head{max-width:54ch;margin-bottom:clamp(50px,7vw,96px)}
+  .matchday .md-head .eyebrow{color:var(--gold-bright)}
+  .matchday .md-head h2{color:var(--cream)}
+  .matchday .md-head .lead{color:rgba(244,239,228,.82)}
+  .matchday .md-row{align-items:center}
+  .matchday .md-row + .md-row{margin-top:clamp(58px,8vw,118px);padding-top:clamp(58px,8vw,118px);border-top:1px solid var(--line-light)}
+  .matchday .film-copy .eyebrow{color:var(--gold-bright);margin-bottom:24px}
+  .matchday .film-copy h3{font-family:'Playfair Display',serif;font-weight:400;line-height:1.08;letter-spacing:-.01em;font-size:clamp(1.7rem,3.4vw,2.7rem);color:var(--cream);margin-bottom:clamp(16px,2vw,24px)}
+  .matchday .film-copy .lead{color:rgba(244,239,228,.84);margin-bottom:0}
+  .matchday .muted-tag{color:rgba(244,239,228,.6)}
+  .matchday .master-link{color:var(--cream);border-color:var(--gold)}
+  .matchday .master-link:hover{color:var(--ink);background:var(--gold)}
+
+  /* ---------- 03 the stills ---------- */
+  .stills{background:var(--cream-deep)}
+  .stills .sec-head{margin-bottom:clamp(44px,6vw,76px)}
+  .salad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,22px)}
+  .salad-grid figure{position:relative}
+  .salad-grid img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:2px;transition:transform 1.2s var(--ease)}
+  .salad-grid figure:hover img{transform:scale(1.03)}
+  .salad-grid figcaption{margin-top:11px;font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.2em;font-size:.6rem;text-transform:uppercase;color:var(--stone)}
+  .salad-grid figure.feat{grid-column:span 2;grid-row:span 1}
+  .salad-grid figure.feat img{aspect-ratio:4/5}
+
+  /* ---------- notify / subscribe ---------- */
+  .notify{background:var(--ink);color:var(--cream);text-align:center}
+  .notify .wrap{padding-top:clamp(72px,10vw,140px);padding-bottom:clamp(72px,10vw,140px)}
+  .notify .eyebrow{color:var(--gold-bright)}
+  .notify h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,3rem);line-height:1.16;margin:18px auto clamp(18px,2.4vw,26px);max-width:18ch}
+  .notify p.np{color:rgba(244,239,228,.78);max-width:46ch;margin:0 auto clamp(30px,4vw,42px);font-size:clamp(1rem,1.2vw,1.12rem);font-weight:300}
+  .notify form{display:flex;gap:12px;max-width:540px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+  .notify input[type=email]{flex:1 1 280px;min-width:0;background:transparent;border:1px solid rgba(244,239,228,.32);border-radius:2px;
+    color:var(--cream);font-family:'Inter',sans-serif;font-size:1rem;padding:15px 18px;outline:none;transition:border-color .4s var(--ease)}
+  .notify input[type=email]::placeholder{color:rgba(244,239,228,.5)}
+  .notify input[type=email]:focus{border-color:var(--gold-bright)}
+  .notify button{background:var(--gold);color:var(--ink);border:0;border-radius:2px;font-family:'Inter',sans-serif;font-weight:600;
+    letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;padding:15px 30px;cursor:pointer;transition:background .4s var(--ease)}
+  .notify button:hover{background:var(--gold-bright)}
+  .notify .hp{position:absolute;left:-9999px}
+  .notify .thanks{display:none;color:var(--gold-bright);font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.2vw,1.7rem);font-style:italic}
+  .notify.done form{display:none}
+  .notify.done .thanks{display:block}
+  .notify .fineprint{margin-top:18px;color:rgba(244,239,228,.4);font-size:.72rem;letter-spacing:.04em}
+
+  /* ---------- sign off ---------- */
+  .signoff{background:var(--ink);color:var(--cream);text-align:center}
+  .signoff .wrap{padding-top:clamp(86px,12vw,168px);padding-bottom:clamp(54px,7vw,88px)}
+  .signoff .line{width:54px;height:1px;background:var(--gold);margin:0 auto clamp(34px,4vw,46px)}
+  .signoff h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4.4vw,3.3rem);line-height:1.18;margin:0 auto clamp(40px,5vw,60px);max-width:20ch}
+  .signoff h2 em{font-style:italic;color:var(--gold-bright)}
+  .cobrand{display:flex;align-items:center;justify-content:center;gap:clamp(18px,3vw,38px);flex-wrap:wrap}
+  .cobrand img{height:clamp(30px,4vw,46px);width:auto}
+  .cobrand .b{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.22em;font-size:clamp(1rem,1.7vw,1.4rem)}
+  .cobrand .x{color:var(--gold);font-size:1.4rem}
+  .signoff .meta{margin-top:clamp(44px,6vw,76px);color:rgba(244,239,228,.55);font-size:.82rem;letter-spacing:.04em;line-height:1.9;max-width:54ch;margin-left:auto;margin-right:auto}
+  footer{background:var(--ink);color:rgba(244,239,228,.4);text-align:center;padding:24px 20px;border-top:1px solid var(--line-light);
+    font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.24em;font-size:.6rem;text-transform:uppercase}
+
+  /* ---------- reveal (visible by default) ---------- */
+  .reveal{opacity:1;transform:none;transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+  html.anim .reveal{opacity:0;transform:translateY(34px)}
+  html.anim .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:980px){
+    .space-grid,.film-grid{grid-template-columns:1fr;gap:42px}
+    .space-figure,.film .phone{order:-1}
+    .salad-grid{grid-template-columns:repeat(3,1fr)}
+    .salad-grid figure.feat{grid-column:span 3}
+    .salad-grid figure.feat img{aspect-ratio:16/9}
+    .steps{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    header{padding-left:18px;padding-right:18px}
+    .hr-label{display:none}
+    .scrollcue{display:none}
+    .hero h1{font-size:clamp(2rem,9vw,3rem);line-height:1.04}
+    .hero .sub{font-size:1rem;max-width:100%}
+    .sec-head,.lead,.body-copy,.signoff h2,.signoff .meta,.quote-band p{max-width:100%}
+    .sec-head h2{font-size:clamp(1.8rem,7.5vw,2.6rem)}
+    .salad-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+    .salad-grid figure.feat{grid-column:span 2}
+    .cobrand{gap:14px}
+    .lead{font-size:1.12rem}
+    .phone{width:min(300px,80vw)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .scrollcue .bar{animation:none}
+    html{scroll-behavior:auto}
+    *{transition-duration:.001ms!important;animation-duration:.001ms!important}
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header id="hdr">
+  <div class="hm">
+    <img class="lg lg-cream" src="assets/logo/villa_lucca_cream.png" alt="Villa Lucca" />
+    <img class="lg lg-green" src="assets/logo/villa_lucca_green.png" alt="" aria-hidden="true" />
+  </div>
+  <div class="hr"><span class="hr-label">Delivered by</span><span class="x">×</span><span>Alan Productions</span></div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="top">
+  <video class="reel" autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
+         poster="assets/video/poster.jpg"
+         controlslist="nodownload noremoteplayback nofullscreen" disablepictureinpicture aria-hidden="true">
+    <source src="assets/video/hero.mp4" type="video/mp4" />
+  </video>
+  <img class="poster" src="assets/video/poster.jpg" alt="" aria-hidden="true" style="z-index:0" />
+  <div class="scrim" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="eyebrow kicker">Villa Lucca × Alan Productions · The Delivery Space</div>
+    <h1 class="display">Villa Lucca,<br><em>in motion.</em></h1>
+    <p class="sub">The official space where the work lands. Each film and campaign is sorted here as it's finished — new work appears as it's delivered, you're notified by email the day it arrives, and every piece carries a link to its full-quality master.</p>
+  </div>
+  <div class="scrollcue" aria-hidden="true"><span>Scroll</span><span class="bar"></span></div>
+</section>
+
+<!-- ======================= 01 THE SPACE ======================= -->
+<section class="space band">
+  <div class="wrap space-grid">
+    <div class="space-copy">
+      <span class="eyebrow reveal">01 — The Space</span>
+      <h2 class="display reveal d1">Everything,<br>in one place.</h2>
+      <p class="body-copy reveal d2">This is where the work arrives. As each film and campaign is finished, it's placed here — sorted, titled and ready to watch. No inboxes to dig through, no files to chase. One calm, considered home for the whole collaboration.</p>
+      <p class="body-copy reveal d3">The day something new lands, an email finds you. Open it here, watch it in full motion, and follow the link to the full-quality master whenever you're ready to publish.</p>
+    </div>
+    <figure class="space-figure reveal d2">
+      <img src="assets/img/salads/salmon_01_hero.jpg" alt="Villa Lucca smoked salmon salad, branded still" loading="lazy" />
+      <figcaption>The House Mark — on every piece</figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <div class="steps">
+      <div class="step reveal"><span class="sn">01</span><h3>It's delivered</h3><p>Each finished piece is placed here, graded and titled — never a raw file dump.</p></div>
+      <div class="step reveal d1"><span class="sn">02</span><h3>You're notified</h3><p>An email lands the day new work appears, so nothing is ever missed.</p></div>
+      <div class="step reveal d2"><span class="sn">03</span><h3>You take it live</h3><p>Watch it in motion, then follow the link to the full-quality master to publish.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PULL QUOTE ======================= -->
+<section class="quote-band">
+  <div class="wrap">
+    <p class="reveal">Some dishes are made to be ordered. Others are made to be remembered.</p>
+    <div class="eyebrow by reveal d1">The Villa Lucca table, on film</div>
+  </div>
+</section>
+
+<!-- ======================= 02 NOW SHOWING — BRUNCH AT THE VILLA ======================= -->
+<section class="film band">
+  <div class="wrap film-grid">
+    <div class="film-copy">
+      <span class="eyebrow reveal">02 — Now Showing</span>
+      <h2 class="display reveal d1">Brunch at<br>the Villa.</h2>
+      <p class="lead reveal d2">At Villa Lucca, brunch isn't a meal — it's a standing appointment. This film sets the table in motion around its centerpiece: honey poured warm and slow over a golden, flaky crust, the cheese board built for sharing, and the easy, unhurried company that gathers around it.</p>
+      <div class="note reveal d3">It was made to carry a feeling, not just a plate — the slow, all-day table the house is known for. The pour, the board and the laughter around it do the inviting — come, sit, share, stay.</div>
+    </div>
+    <div>
+      <div class="phone reveal d1" oncontextmenu="return false">
+        <div class="screen">
+          <video autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
+                 poster="assets/video/brunch_poster.jpg"
+                 controlslist="nodownload noremoteplayback nofullscreen" disablepictureinpicture>
+            <source src="assets/video/brunch.mp4" type="video/mp4" />
+          </video>
+          <div class="gloss" aria-hidden="true"></div>
+          <div class="shield" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="muted-tag reveal d1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>
+        Playing silently · sound lives on the master
+      </div>
+      <div class="master-cta reveal d2">
+        <a class="master-link" href="https://drive.google.com/drive/folders/1y6pBF7I2hcsYl_MYm9yGFypBis8CHAvY" target="_blank" rel="noopener">Full-quality film <span class="ar">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 03 ALSO SHOWING — FRENCH TOAST ======================= -->
+<section class="film alt band">
+  <div class="wrap film-grid">
+    <div class="film-copy">
+      <span class="eyebrow reveal">03 — Also Showing</span>
+      <h2 class="display reveal d1">Cream Brûlée<br>French Toast.</h2>
+      <p class="lead reveal d2">Some dishes are made to be ordered; others are made to be understood. This film brings the Cream Brûlée French Toast into the light — quick, tactile cuts of the make: the torch, the crack of the caramel crust, the slow pull of the inside — and then the first bite.</p>
+      <div class="note reveal d3">It was built to answer something real: guests didn't always know how to approach the dish, or how to finish it. So the film teaches the want — the inside, the texture, the way it's meant to be eaten — in the most entertaining, editorial way.</div>
+    </div>
+    <div>
+      <div class="phone reveal d1" oncontextmenu="return false">
+        <div class="screen">
+          <video autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
+                 poster="assets/video/poster.jpg"
+                 controlslist="nodownload noremoteplayback nofullscreen" disablepictureinpicture>
+            <source src="assets/video/film.mp4" type="video/mp4" />
+          </video>
+          <div class="gloss" aria-hidden="true"></div>
+          <div class="shield" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="muted-tag reveal d1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>
+        Playing silently · sound lives on the master
+      </div>
+      <div class="master-cta reveal d2">
+        <a class="master-link" href="https://drive.google.com/drive/folders/1Gb-T53DsgWkTAxffrM_topDXw1vw_fkl" target="_blank" rel="noopener">Full-quality film <span class="ar">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 04 MATCH DAY AT VILLA LUCCA ======================= -->
+<section class="matchday band">
+  <div class="wrap">
+    <div class="sec-head md-head">
+      <span class="eyebrow reveal">04 — Match Day at Villa Lucca</span>
+      <h2 class="display reveal d1">The night we<br>watched together.</h2>
+      <p class="lead reveal d2">Egypt against Belgium — and a house that turned the match into an evening. The colours going on, the flags, the horns, the kitchen joining in. Two films from the night: the full recap, and the room's own predictions.</p>
+    </div>
+  </div>
+
+  <!-- Row 1 — The Recap (highlights) -->
+  <div class="wrap film-grid md-row">
+    <div class="film-copy">
+      <span class="eyebrow reveal">The Recap</span>
+      <h3 class="reveal d1">The whole night,<br>in one cut.</h3>
+      <p class="lead reveal d2">An overview of match-day vibes at Villa Lucca — the room filling, the face paint and flags, the horns, and the kitchen flying the flag from the pass. Every high, every huddle, every best moment, in a single run.</p>
+    </div>
+    <div class="film-media">
+      <div class="phone reveal d1" oncontextmenu="return false">
+        <div class="screen">
+          <video autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
+                 poster="assets/video/matchday_highlights_poster.jpg"
+                 controlslist="nodownload noremoteplayback nofullscreen" disablepictureinpicture>
+            <source src="assets/video/matchday_highlights.mp4" type="video/mp4" />
+          </video>
+          <div class="gloss" aria-hidden="true"></div>
+          <div class="shield" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="muted-tag reveal d1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>
+        Playing silently · sound lives on the master
+      </div>
+      <div class="master-cta reveal d2">
+        <a class="master-link" href="https://drive.google.com/drive/folders/1gK-Xq9LjqdXDoYD-bveH-IdnWZ-0X-gv" target="_blank" rel="noopener">Full-quality film <span class="ar">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 — The Predictions (phone left · copy right) -->
+  <div class="wrap film-grid md-row">
+    <div class="film-media">
+      <div class="phone reveal d1" oncontextmenu="return false">
+        <div class="screen">
+          <video autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
+                 poster="assets/video/matchday_predictions_poster.jpg"
+                 controlslist="nodownload noremoteplayback nofullscreen" disablepictureinpicture>
+            <source src="assets/video/matchday_predictions.mp4" type="video/mp4" />
+          </video>
+          <div class="gloss" aria-hidden="true"></div>
+          <div class="shield" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="muted-tag reveal d1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>
+        Playing silently · sound lives on the master
+      </div>
+      <div class="master-cta reveal d2">
+        <a class="master-link" href="https://drive.google.com/drive/folders/10h_-QVLGoFHfVKhSUXsGDzC1zv1OfADL" target="_blank" rel="noopener">Full-quality film <span class="ar">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="film-copy">
+      <span class="eyebrow reveal">The Predictions</span>
+      <h3 class="reveal d1">Who's<br>scoring?</h3>
+      <p class="lead reveal d2">Before kickoff, we put it to the room. A fun, interactive reel of Villa Lucca's guests calling Egypt against Belgium — their boldest predictions brought to life with motion graphics, and the easy vibe of the place before a ball was even kicked.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 05 THE STILLS ======================= -->
+<section class="stills band">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">05 — The Menu, in Stills</span>
+      <h2 class="display reveal d1">The salads, dressed.</h2>
+      <p class="lead reveal d2">The season's salads — each shot, graded and set with the house mark. Ready to post, to print, or to place on the menu.</p>
+      <div class="reveal d3" style="margin-top:6px">
+        <a class="master-link" href="https://drive.google.com/drive/folders/1neD258dtHThW4QNb8Ub7rJdmEZxuXFAM" target="_blank" rel="noopener">Full-resolution set <span class="ar">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="salad-grid reveal d1">
+      <figure><img src="assets/img/salads/quinoa_01_hero.jpg" alt="Quinoa Salad" loading="lazy"><figcaption>Quinoa Salad</figcaption></figure>
+      <figure><img src="assets/img/salads/thai_01_hero.jpg" alt="Thai Chicken Salad" loading="lazy"><figcaption>Thai Chicken Salad</figcaption></figure>
+      <figure><img src="assets/img/salads/peach_01_hero.jpg" alt="Peach Halloumi Salad" loading="lazy"><figcaption>Peach Halloumi Salad</figcaption></figure>
+      <figure><img src="assets/img/salads/salmon_01_hero.jpg" alt="Smoked Salmon Salad" loading="lazy"><figcaption>Smoked Salmon Salad</figcaption></figure>
+
+      <figure><img src="assets/img/salads/quinoa_02_terrace.jpg" alt="Quinoa, terrace" loading="lazy"><figcaption>Quinoa · Terrace</figcaption></figure>
+      <figure><img src="assets/img/salads/quinoa_03_closeup.jpg" alt="Quinoa, detail" loading="lazy"><figcaption>Quinoa · Detail</figcaption></figure>
+      <figure><img src="assets/img/salads/thai_02_45.jpg" alt="Thai chicken, studio" loading="lazy"><figcaption>Thai · Studio</figcaption></figure>
+      <figure><img src="assets/img/salads/thai_03_terrace.jpg" alt="Thai chicken, terrace" loading="lazy"><figcaption>Thai · Terrace</figcaption></figure>
+
+      <figure><img src="assets/img/salads/thai_04_terrace.jpg" alt="Thai chicken, daylight" loading="lazy"><figcaption>Thai · Daylight</figcaption></figure>
+      <figure><img src="assets/img/salads/thai_05_topdown.jpg" alt="Thai chicken, overhead" loading="lazy"><figcaption>Thai · Overhead</figcaption></figure>
+      <figure><img src="assets/img/salads/thai_06_closeup.jpg" alt="Thai chicken, detail" loading="lazy"><figcaption>Thai · Detail</figcaption></figure>
+      <figure><img src="assets/img/salads/peach_02_45.jpg" alt="Peach halloumi, studio" loading="lazy"><figcaption>Peach · Studio</figcaption></figure>
+
+      <figure><img src="assets/img/salads/peach_03_closeup.jpg" alt="Peach halloumi, detail" loading="lazy"><figcaption>Peach · Detail</figcaption></figure>
+      <figure><img src="assets/img/salads/salmon_02_topdown.jpg" alt="Smoked salmon, overhead" loading="lazy"><figcaption>Salmon · Overhead</figcaption></figure>
+      <figure><img src="assets/img/salads/salmon_03_45.jpg" alt="Smoked salmon, studio" loading="lazy"><figcaption>Salmon · Studio</figcaption></figure>
+      <figure><img src="assets/img/salads/salmon_04_45.jpg" alt="Smoked salmon, studio" loading="lazy"><figcaption>Salmon · Studio II</figcaption></figure>
+
+      <figure><img src="assets/img/salads/salmon_05_terrace.jpg" alt="Smoked salmon, terrace" loading="lazy"><figcaption>Salmon · Terrace</figcaption></figure>
+      <figure><img src="assets/img/salads/salmon_06_terrace.jpg" alt="Smoked salmon, daylight" loading="lazy"><figcaption>Salmon · Daylight</figcaption></figure>
+      <figure><img src="assets/img/salads/salmon_07_closeup.jpg" alt="Smoked salmon, detail" loading="lazy"><figcaption>Salmon · Detail</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= NOTIFY / SUBSCRIBE ======================= -->
+<section class="notify" id="notify">
+  <div class="wrap">
+    <span class="eyebrow reveal">Stay in the loop</span>
+    <h2 class="reveal d1">Know the moment new work lands.</h2>
+    <p class="np reveal d2">Drop your email and we'll let you know each time a new piece goes live here — with the link, ready to share.</p>
+    <form class="reveal d2" id="notifyForm" novalidate>
+      <p class="hp"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+      <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
+      <button type="submit">Notify me</button>
+    </form>
+    <div class="thanks reveal d2">You're on the list — we'll be in touch the moment the next piece drops.</div>
+    <div class="fineprint reveal d3">No spam. Just new work, as it's delivered.</div>
+  </div>
+</section>
+
+<!-- ======================= SIGN OFF ======================= -->
+<section class="signoff">
+  <div class="wrap">
+    <div class="line reveal"></div>
+    <h2 class="reveal d1">Crafted for the table —<br><em>delivered as one.</em></h2>
+    <div class="cobrand reveal d2">
+      <img src="assets/logo/villa_lucca_cream.png" alt="Villa Lucca" />
+      <span class="x">×</span>
+      <span class="b">ALAN PRODUCTIONS</span>
+    </div>
+    <p class="meta reveal d3">New work appears here as it's delivered — you'll be notified by email each time a piece lands, with a link to its full-quality master.</p>
+  </div>
+</section>
+<footer>© Villa Lucca × Alan Productions — The Delivery Space</footer>
+
+<script>
+  var hdr=document.getElementById('hdr');
+  var onScroll=function(){ if(window.scrollY>window.innerHeight*0.72){hdr.classList.add('scrolled');}else{hdr.classList.remove('scrolled');} };
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  (function(){
+    var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els=[].slice.call(document.querySelectorAll('.reveal'));
+    if(rm || !els.length){ return; }
+    document.documentElement.classList.add('anim');
+    function scan(){
+      var vh=window.innerHeight||document.documentElement.clientHeight||800;
+      for(var i=0;i<els.length;i++){ var el=els[i];
+        if(el.className.indexOf('in')>-1) continue;
+        var r=el.getBoundingClientRect();
+        if(r.top < vh*0.92 && r.bottom > 0){ el.classList.add('in'); }
+      }
+    }
+    function showAll(){ for(var i=0;i<els.length;i++){ els[i].classList.add('in'); } }
+    scan();
+    window.addEventListener('scroll',scan,{passive:true});
+    window.addEventListener('resize',scan,{passive:true});
+    window.addEventListener('load',scan);
+    setTimeout(scan,300);
+    setTimeout(showAll,4500);
+  })();
+
+  document.addEventListener('contextmenu',function(e){ if(e.target.closest('img, video, .phone')) e.preventDefault(); });
+  document.querySelectorAll('img, video').forEach(function(el){ el.setAttribute('draggable','false'); el.addEventListener('dragstart',function(e){e.preventDefault();}); });
+
+  function playAll(){ document.querySelectorAll('video').forEach(function(v){ v.muted=true; var p=v.play(); if(p&&p.catch){p.catch(function(){});} }); }
+  playAll();
+  var kick=function(){ playAll(); window.removeEventListener('touchstart',kick); window.removeEventListener('click',kick); };
+  window.addEventListener('touchstart',kick,{passive:true});
+  window.addEventListener('click',kick);
+
+  (function(){
+    var hv=document.querySelector('.hero video.reel');
+    var hp=document.querySelector('.hero .poster');
+    if(!hv||!hp) return;
+    hp.style.transition='opacity .8s ease';
+    var reveal=function(){ if(hv.currentTime>0 && !hv.paused){ hp.style.opacity='0'; } };
+    hv.addEventListener('playing',reveal);
+    hv.addEventListener('timeupdate',reveal);
+  })();
+
+  // notify form -> /api/subscribe (serverless function + Netlify Blobs)
+  (function(){
+    var f=document.getElementById('notifyForm');
+    if(!f) return;
+    var emailRe=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var fd=new FormData(f);
+      var email=(fd.get('email')||'').toString().trim();
+      var btn=f.querySelector('button');
+      if(!emailRe.test(email)){ var i=f.querySelector('input[type=email]'); if(i){i.focus();i.style.borderColor='var(--gold-bright)';} return; }
+      if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
+      fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email:email,'bot-field':(fd.get('bot-field')||'').toString()})})
+        .then(function(r){ return r.json().catch(function(){return {ok:r.ok};}); })
+        .then(function(res){
+          if(res&&res.ok){ document.getElementById('notify').classList.add('done'); }
+          else { if(btn){btn.disabled=false;btn.textContent='Notify me';} var i=f.querySelector('input[type=email]'); if(i){i.focus();i.style.borderColor='var(--gold-bright)';} }
+        })
+        .catch(function(){ if(btn){btn.disabled=false;btn.textContent='Notify me';} });
+    });
+  })();
+</script>
+</body>
+</html>
